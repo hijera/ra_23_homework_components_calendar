@@ -3,6 +3,8 @@ import React from 'react';
 import '../css/main.css';
 import moment from 'moment';
 import 'moment/locale/ru';
+import PropTypes from 'prop-types'
+
 export default function Calendar(props)
 {
 
@@ -12,7 +14,6 @@ export default function Calendar(props)
     const subjective=["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
     moment.updateLocale('ru',{
         months  : function (momentToFormat, format) {
-            console.log(momentToFormat);
             if (/^MMMM/.test(format)) {
                 return nominative[momentToFormat.month()];
             } else {
@@ -112,7 +113,7 @@ export default function Calendar(props)
                 </colgroup>
                 <thead>
                 <tr>
-                    {dayOfWeekArray.map(day=><th scope={"col"} title={day.title}>{day.caption}</th>)}
+                    {dayOfWeekArray.map(day=><th scope={"col"} key={day.title} title={day.title}>{day.caption}</th>)}
                 </tr>
                 </thead>
                 <tbody>
@@ -121,4 +122,8 @@ export default function Calendar(props)
             </table>
         </div>
     );
+}
+
+Calendar.propTypes={
+    date:PropTypes.objectOf(Date)
 }
